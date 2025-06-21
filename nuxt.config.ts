@@ -3,8 +3,14 @@ import svgLoader from 'vite-svg-loader'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    modules: [
+        '@nuxt/eslint',
+        '@nuxtjs/google-fonts',
+        '@nuxtjs/i18n',
+        '@pinia/nuxt',
+        '@vueuse/nuxt',
+    ],
 
-    modules: ['@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxtjs/i18n', '@pinia/nuxt'],
     ssr: true,
     devtools: { enabled: false },
 
@@ -28,7 +34,6 @@ export default defineNuxtConfig({
     // Enable experimental features for better performance
     experimental: {
         payloadExtraction: false,
-        // inlineSSRStyles: false,
         renderJsonPayloads: true,
         typedPages: true,
     },
@@ -55,26 +60,23 @@ export default defineNuxtConfig({
             devSourcemap: false,
         },
 
+        // Simplified build config - loại bỏ manualChunks gây conflict
         build: {
             rollupOptions: {
-                output: {
-                    manualChunks: {
-                        'vue-vendor': ['vue', '@vue/runtime-core'],
-                        'pinia-vendor': ['pinia', '@pinia/nuxt'],
-                        'utils': ['@vueuse/core', '@vueuse/nuxt'],
-                    },
-                },
+                external: ['@nuxt/kit'], // Exclude @nuxt/kit from bundling
             },
         },
+
         optimizeDeps: {
             include: ['lucide-vue-next'],
+            exclude: ['@nuxt/kit'], // Exclude from optimization
         },
     },
 
     // TypeScript optimization
     typescript: {
         strict: true,
-        typeCheck: false, // Disable in development for faster builds
+        typeCheck: false,
     },
 
     eslint: {
