@@ -1,0 +1,17 @@
+@layer components {
+  .btn {
+    @apply inline-flex items-center px-4 py-1 border border-transparent rounded-lg text-sm font-medium shadow-sm transition duration-150 ease-in-out;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-800 hover:bg-gray-200;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+}

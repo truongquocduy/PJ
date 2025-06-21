@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import "./components/_container.css";
+@import "./components/_button.css";
+@import "./components/_badge.css";
+@import "./components/_product.css";
+
+body {
+    font-size: 12px;
+    font-family: Public Sans, Public Sans Fallback;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: var(--color-bg);
+}
+
+.prose * {
+    @apply text-(--ui-text);
+}
+
+.prose img {
+    @apply mx-auto rounded-2xl;
+}
+
+.prose p {
+    @apply my-2;
+}
