@@ -15,7 +15,35 @@ export default defineNuxtConfig({
 
     srcDir: 'src/',
 
+    // Build optimization
+    build: {
+        transpile: ['lucide-vue-next'],
+    },
+
+    routeRules: {
+        '/': { prerender: true },
+        '/api/**': { cors: true, headers: { 'cache-control': 's-maxage=60' } },
+    },
+
+    // Enable experimental features for better performance
+    experimental: {
+        payloadExtraction: false,
+        // inlineSSRStyles: false,
+        renderJsonPayloads: true,
+        typedPages: true,
+    },
+
     compatibilityDate: '2025-05-15',
+
+    // Optimize build
+    nitro: {
+        compressPublicAssets: true,
+        minify: true,
+        prerender: {
+            crawlLinks: false,
+            routes: ['/'],
+        },
+    },
 
     vite: {
         plugins: [
@@ -26,6 +54,27 @@ export default defineNuxtConfig({
         css: {
             devSourcemap: false,
         },
+
+        build: {
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'vue-vendor': ['vue', '@vue/runtime-core'],
+                        'pinia-vendor': ['pinia', '@pinia/nuxt'],
+                        'utils': ['@vueuse/core', '@vueuse/nuxt'],
+                    },
+                },
+            },
+        },
+        optimizeDeps: {
+            include: ['lucide-vue-next'],
+        },
+    },
+
+    // TypeScript optimization
+    typescript: {
+        strict: true,
+        typeCheck: false, // Disable in development for faster builds
     },
 
     eslint: {
